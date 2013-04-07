@@ -5,17 +5,50 @@ var _ = {};
   // Return an array of the last n elements of an array. If n is undefined,
   // return just the last element.
   _.last = function(array, n) {
+    if (n === undefined){
+      return array[array.length-1];
+    } else if (n > array.length){
+        return array;
+    } else{
+      var storage = [];
+      for(var i = array.length-n; i < array.length; i ++){
+        storage.push(array[i]);
+      }
+      return storage;
+    }
   };
 
   // Like last, but for the first elements
   _.first = function(array, n) {
     // TIP: you can often re-use similar functions in clever ways, like so:
-    return _.last(array.reverse(), n);
+    if (!array === true && !array.length === true){
+      return;
+    } else {
+      if (n === undefined){
+          return array[0];
+      } else {
+        var reReverse = _.last(array.reverse(), n);
+        return reReverse.reverse();
+      } 
+    }
   };
 
 
   // Call iterator(value, key, collection) for each element of collection
   _.each = function(obj, iterator) {
+    if (!obj) {
+        return;
+    } else if (obj.length){
+      for(var i = 0; i < obj.length; i++){
+           iterator(obj[i],i,obj);
+      } 
+    } else {
+      for(var key in obj){
+        if(obj.hasOwnProperty(key)){
+            iterator(obj[key],key,obj);
+        }    
+      }
+    }
   };
 
   /*
@@ -40,6 +73,13 @@ var _ = {};
 
   // Return all elements of an array that pass a truth test.
   _.filter = function(collection, iterator) {
+    var newArr = [];
+    _.each(collection, function(item, index){
+      if(iterator(item)){
+         newArr.push(collection[index]);
+      }
+    return newArr;
+    });
   };
 
   // Return all elements of an array that don't pass a truth test.

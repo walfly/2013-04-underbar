@@ -24,7 +24,7 @@ describe("last", function() {
 
 });
 
-/*
+
 
 describe("first", function() {
   it("should be able to pull out the first element of an array", function() {
@@ -107,7 +107,7 @@ describe("filter", function() {
     expect(odds).to.eql([1, 3, 5]);
   });
 });
-
+/*
 describe("reject", function() {
   it("should reject all even numbers", function() {
     var isEven = function(num) { return num % 2 === 0; };
