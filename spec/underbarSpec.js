@@ -107,7 +107,7 @@ describe("filter", function() {
     expect(odds).to.eql([1, 3, 5]);
   });
 });
-/*
+
 describe("reject", function() {
   it("should reject all even numbers", function() {
     var isEven = function(num) { return num % 2 === 0; };
@@ -201,7 +201,7 @@ describe("reduce", function() {
   });
 
 });
-
+/*
 describe("contains", function() {
   it("should return true if a collection contains a user-specified value", function() {
     expect(_.contains([1,2,3], 2)).to.equal(true);

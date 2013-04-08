@@ -21,16 +21,17 @@ var _ = {};
   // Like last, but for the first elements
   _.first = function(array, n) {
     // TIP: you can often re-use similar functions in clever ways, like so:
-    if (!array === true && !array.length === true){
-      return;
-    } else {
       if (n === undefined){
-          return array[0];
+        return array[0];
+      } else if (n > array.length){
+        return array;
       } else {
-        var reReverse = _.last(array.reverse(), n);
-        return reReverse.reverse();
-      } 
-    }
+        var storage = [];
+        for(var i = 0; i < n; i ++){
+          storage.push(array[i]);
+        }
+        return storage;
+      }
   };
 
 
@@ -73,13 +74,13 @@ var _ = {};
 
   // Return all elements of an array that pass a truth test.
   _.filter = function(collection, iterator) {
-    var newArr = [];
-    _.each(collection, function(item, index){
-      if(iterator(item)){
-         newArr.push(collection[index]);
-      }
-    return newArr;
-    });
+      var storage = [];
+      _.each(collection, function(item){
+        if(iterator(item)){
+          storage.push(item);
+        };
+      });
+      return storage;
   };
 
   // Return all elements of an array that don't pass a truth test.
@@ -90,6 +91,15 @@ var _ = {};
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
+    var storage = [];
+    var unique = {};
+    _.each(array, function(item){
+      unique[item] = unique[item];
+    });
+    _.each(unique, function(item, index){
+        storage.push(index);
+    });
+    return storage;
   };
 
 
@@ -101,6 +111,11 @@ var _ = {};
 
   // Return the results of applying an iterator to each element.
   _.map = function(array, iterator) {
+    var storage = [];
+    _.each(array, function(item){
+      storage.push(iterator(item));
+    });
+    return storage;
   };
 
   /*
@@ -119,7 +134,10 @@ var _ = {};
   };
 
   // Calls the method named by methodName on each value in the list.
-  _.invoke = function(list, methodName) {
+  _.invoke = function(list, methodName) { 
+    return _.map(list, function(value){
+      return value[methodName]();
+    });
   };
 
   // Reduces an array or object to a single value by repetitively calling
