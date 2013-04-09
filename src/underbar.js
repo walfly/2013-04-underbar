@@ -196,6 +196,18 @@ var _ = {};
   // provided, provide a default one
   _.any = function(obj, iterator) {
     // TIP: re-use every() here
+    if(!iterator){
+      iterator = function(item){
+        return item;
+      }
+    }
+    var storage = false;
+    _.each(obj, function(item){
+      if (iterator(item)){
+        storage = true;
+      }
+    });
+    return storage;
   };
 
 
