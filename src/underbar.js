@@ -87,6 +87,13 @@ var _ = {};
   _.reject = function(collection, iterator) {
     // TIP: see if you can re-use _.select() here, without simply
     // copying code in and modifying it
+        var storage = [];
+      _.each(collection, function(item){
+        if(!iterator(item)){
+          storage.push(item);
+        };
+      });
+      return storage;
   };
 
   // Produce a duplicate-free version of the array.
@@ -154,6 +161,14 @@ var _ = {};
   //   }, 0); // should be 6
   //
   _.reduce = function(obj, iterator, initialValue) {
+    var storage = initialValue;
+    if(storage === undefined){
+      storage = 0;
+    };
+    _.each(obj, function(value){
+      storage = iterator(storage, value);
+    });
+    return storage;
   };
 
   // Determine if the array or object contains a given value (using `===`).
@@ -172,6 +187,13 @@ var _ = {};
   // Determine whether all of the elements match a truth test.
   _.every = function(obj, iterator) {
     // TIP: use reduce on this one!
+      var storage = true
+      _.reduce(obj, function(memo, item){
+        if (!iterator(item)){
+          storage = false;
+        }
+      });
+      return storage;
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
@@ -258,6 +280,17 @@ var _ = {};
 
   // Shuffle an array.
   _.shuffle = function(obj) {
+      var newArr = [];
+      _.each(obj, function(item){
+        newArr.push(item);
+      });
+      for (var i = newArr.length-1; i > 0; i --){
+        var newI = Math.floor(Math.random()*obj.length);
+        var storingValue = newArr[i];
+        newArr[i] = newArr[newI];
+        newArr[newI] = storingValue;
+      };
+      return newArr;
   };
 
   /* (End of pre-course curriculum) */

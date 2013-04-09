@@ -201,7 +201,7 @@ describe("reduce", function() {
   });
 
 });
-/*
+
 describe("contains", function() {
   it("should return true if a collection contains a user-specified value", function() {
     expect(_.contains([1,2,3], 2)).to.equal(true);
@@ -249,7 +249,7 @@ describe("every", function() {
     expect(_.every([undefined, undefined, undefined], getValue)).to.equal(false);
   });
 });
-
+/*
 describe("any", function() {
   var nativeSome = Array.prototype.some;
   var isEven = function(number){
@@ -422,6 +422,7 @@ describe("delay", function() {
     expect(callback.calledWith(1, 2)).to.be(true);
   });
 });
+*/
 
 describe("shuffle", function() {
   it("should not modify the original object", function() {
@@ -431,7 +432,7 @@ describe("shuffle", function() {
     expect(shuffled.sort()).to.eql(numbers);
   });
 });
-
+/*
 describe("sortBy", function() {
   it("should sort by age", function() {
     var people = [{name : 'curly', age : 50}, {name : 'moe', age : 30}];
