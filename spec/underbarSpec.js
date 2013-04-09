@@ -249,7 +249,7 @@ describe("every", function() {
     expect(_.every([undefined, undefined, undefined], getValue)).to.equal(false);
   });
 });
-/*
+
 describe("any", function() {
   var nativeSome = Array.prototype.some;
   var isEven = function(number){
@@ -302,7 +302,7 @@ describe("any", function() {
     expect(_.any([0], passThrough)).to.equal(false);
   });
 });
-
+/*
 describe("extend", function() {
   it("should extend an object with the attributes of another", function() {
     var extended = _.extend({}, {a:'b'});

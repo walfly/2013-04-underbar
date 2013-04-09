@@ -87,13 +87,9 @@ var _ = {};
   _.reject = function(collection, iterator) {
     // TIP: see if you can re-use _.select() here, without simply
     // copying code in and modifying it
-        var storage = [];
-      _.each(collection, function(item){
-        if(!iterator(item)){
-          storage.push(item);
-        };
-      });
-      return storage;
+    return _.filter(collection, function(item){
+        return !iterator(item);
+    });
   };
 
   // Produce a duplicate-free version of the array.
