@@ -318,6 +318,13 @@ var _ = {};
 
   // Shuffle an array.
   _.shuffle = function(obj) {
+    for (var i = obj.length - 1; i >= 0; i--) {
+      var newI = Math.floor(Math.random() * (i+1));
+      var stor = obj[i];
+      obj[i] = obj[newI];
+      obj[newI] = stor;
+    };
+    return obj;
   };
 
   /* (End of pre-course curriculum) */
