@@ -139,7 +139,11 @@ var _ = {};
   // Calls the method named by methodName on each value in the list.
   _.invoke = function(list, methodName) { 
     return _.map(list, function(value){
-      return value[methodName]();
+      if (value[methodName]){
+        return value[methodName].call(value);
+      } else {
+        return methodName.call(value);
+      }
     });
   };
 
@@ -196,18 +200,14 @@ var _ = {};
   // provided, provide a default one
   _.any = function(obj, iterator) {
     // TIP: re-use every() here
-    if(!iterator){
-      iterator = function(item){
-        return item;
-      }
+  if(!iterator){
+    iterator=function(item){
+      return item;
     }
-    var storage = false;
-    _.each(obj, function(item){
-      if (iterator(item)){
-        storage = true;
-      }
-    });
-    return storage;
+  }
+  return !_.every(obj, function(){
+    return !iterator.apply(this, arguments);
+  })
   };
 
 
@@ -228,11 +228,29 @@ var _ = {};
   //   }); // obj1 now contains key1, key2, key3 and bla
   //
   _.extend = function(obj) {
+    _.each(arguments, function(item){
+      if(item){
+        for(var key in item){
+          obj[key] = item[key];
+        }
+      }
+    });
+    return obj;
   };
 
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
   _.defaults = function(obj) {
+    _.each(arguments, function(item){
+      if(item){
+        for(var key in item){
+          if (obj[key] == null){
+           obj[key] = item[key];
+          } 
+        }
+      }
+    });
+    return obj;
   };
 
 
@@ -270,6 +288,14 @@ var _ = {};
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
+    var memo = {};
+     return function(){
+        var hasIt = memo.hasOwnProperty(func);
+        if (!hasIt){
+          memo[func] = func.apply(this, arguments);
+        } 
+        return memo[func];
+      };
   };
 
   // Delays a function for the given number of milliseconds, and then calls
@@ -279,6 +305,10 @@ var _ = {};
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
+    var args = Array.prototype.slice.call(arguments, 2);
+    return setTimeout(function(){
+      return func.apply(null, args);
+    }, wait);
   };
 
 
@@ -288,17 +318,6 @@ var _ = {};
 
   // Shuffle an array.
   _.shuffle = function(obj) {
-      var newArr = [];
-      _.each(obj, function(item){
-        newArr.push(item);
-      });
-      for (var i = newArr.length-1; i > 0; i --){
-        var newI = Math.floor(Math.random()*obj.length);
-        var storingValue = newArr[i];
-        newArr[i] = newArr[newI];
-        newArr[newI] = storingValue;
-      };
-      return newArr;
   };
 
   /* (End of pre-course curriculum) */

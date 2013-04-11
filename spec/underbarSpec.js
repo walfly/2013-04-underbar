@@ -302,7 +302,7 @@ describe("any", function() {
     expect(_.any([0], passThrough)).to.equal(false);
   });
 });
-/*
+
 describe("extend", function() {
   it("should extend an object with the attributes of another", function() {
     var extended = _.extend({}, {a:'b'});
@@ -422,8 +422,8 @@ describe("delay", function() {
     expect(callback.calledWith(1, 2)).to.be(true);
   });
 });
-*/
 
+/*
 describe("shuffle", function() {
   it("should not modify the original object", function() {
     var numbers = _.range(10);
