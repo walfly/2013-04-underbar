@@ -352,7 +352,6 @@ var _ = {};
   _.flatten = function(nestedArray, result) {
    var newArray = [];
    var flattener = function (nestedArray1){
-     if(Array.isArray(nestedArray1)){
        for (var i = 0; i < nestedArray1.length; i++){
           if (Array.isArray(nestedArray1[i])){
             flattener(nestedArray1[i]);
@@ -360,7 +359,6 @@ var _ = {};
             newArray.push(nestedArray1[i]);
           }
        }
-     }
    };
    flattener(nestedArray);
    return newArray;
