@@ -21,17 +21,12 @@ var _ = {};
   // Like last, but for the first elements
   _.first = function(array, n) {
     // TIP: you can often re-use similar functions in clever ways, like so:
-      if (n === undefined){
-        return array[0];
-      } else if (n > array.length){
-        return array;
-      } else {
-        var storage = [];
-        for(var i = 0; i < n; i ++){
-          storage.push(array[i]);
-        }
-        return storage;
-      }
+    array = Array.prototype.slice.call(array);
+    var storage = _.last(array.reverse(), n);
+    if(storage.length){
+      storage.reverse();
+    }
+    return storage;
   };
 
 
@@ -187,13 +182,12 @@ var _ = {};
   // Determine whether all of the elements match a truth test.
   _.every = function(obj, iterator) {
     // TIP: use reduce on this one!
-      var storage = true
-      _.reduce(obj, function(memo, item){
+      return _.reduce(obj, function(memo, item){
         if (!iterator(item)){
-          storage = false;
+          memo = false;
         }
-      });
-      return storage;
+        return memo;
+      },true);
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
@@ -342,6 +336,20 @@ var _ = {};
   // Example:
   // _.zip(['a','b','c','d'], [1,2,3]) returns [['a',1], ['b',2], ['c',3]]
   _.zip = function() {
+    var longest = [];
+    _.each(arguments, function(item){
+      if(item.length > longest.length){
+        longest = item;
+      }
+    });
+    var storage = [];
+    for(var i = 0; i < longest.length; i ++){
+      storage[i] = [];
+      _.each(arguments, function(item){
+        storage[i].push(item[i]);
+      })
+    }
+    return storage;
   };
 
   // Flattens a multidimensional array to a one-dimensional array that
@@ -367,11 +375,26 @@ var _ = {};
   // Produce an array that contains every item shared between all the
   // passed-in arrays.
   _.intersection = function(array) {
+    var storage = {};
+    _.each(arguments, function(item){
+      for(var i = 0; i < item.length; i ++){
+        storage[item[i]] = storage[item[i]] ? storage[item[i]] + 1 : 1;
+      }
+    });
+    console.log(storage)
+    var newArray = [];
+    for(var key in storage){
+      if (storage[key] > 1){
+        newArray.push(key);
+      } 
+    }
+    return newArray;
   };
 
   // Take the difference between one array and a number of other arrays.
   // Only the elements present in just the first array will remain.
   _.difference = function(array) {
+    
   };
 
 
