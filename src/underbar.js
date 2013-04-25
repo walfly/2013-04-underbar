@@ -352,13 +352,13 @@ var _ = {};
   _.flatten = function(nestedArray, result) {
    var newArray = [];
    var flattener = function (nestedArray1){
-       for (var i = 0; i < nestedArray1.length; i++){
-          if (Array.isArray(nestedArray1[i])){
-            flattener(nestedArray1[i]);
+       _.each(nestedArray1, function(item){
+          if (Array.isArray(item)){
+            flattener(item);
           }else{
-            newArray.push(nestedArray1[i]);
+            newArray.push(item);
           }
-       }
+       });
    };
    flattener(nestedArray);
    return newArray;
