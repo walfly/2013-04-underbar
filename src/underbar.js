@@ -350,6 +350,20 @@ var _ = {};
   // Hints: Use Array.isArray to check if something is an array
   //
   _.flatten = function(nestedArray, result) {
+   var newArray = [];
+   var flattener = function (nestedArray1){
+     if(Array.isArray(nestedArray1)){
+       for (var i = 0; i < nestedArray1.length; i++){
+          if (Array.isArray(nestedArray1[i])){
+            flattener(nestedArray1[i]);
+          }else{
+            newArray.push(nestedArray1[i]);
+          }
+       }
+     }
+   };
+   flattener(nestedArray);
+   return newArray;
   };
 
   // Produce an array that contains every item shared between all the
