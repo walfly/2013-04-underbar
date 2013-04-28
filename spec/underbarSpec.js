@@ -392,6 +392,19 @@ describe("memoize", function() {
     expect(passThrough('toString')).to.equal('toString');
     expect(fastPassThrough('toString')).to.equal('toString');
   });
+  it("my test", function() {
+    var fib = function(n) {
+      return n < 2 ? n : fib(n - 1) + fib(n - 2);
+    };
+    expect(fib(10)).to.equal(55);
+    console.log(fib(7));
+    var fastFib = _.memoize(fib);
+    expect(fastFib(10)).to.equal(55);
+    expect(fastFib(7)).to.equal(13);
+  });
+
+
+
 });
 
 describe("delay", function() {
@@ -432,7 +445,7 @@ describe("shuffle", function() {
     expect(shuffled.sort()).to.eql(numbers);
   });
 });
-/*
+
 describe("sortBy", function() {
   it("should sort by age", function() {
     var people = [{name : 'curly', age : 50}, {name : 'moe', age : 30}];
@@ -499,7 +512,6 @@ describe("flatten", function() {
     var nestedArray = [1, [2], [3, [[[4]]]]];
     expect(_.flatten(nestedArray)).to.eql([1,2,3,4]);
   });
-
   it("works on an arguments object", function() {
     var args = returnArguments(1, [2], [3, [[[4]]]]);
     expect(_.flatten(args)).to.eql([1,2,3,4]);
@@ -519,7 +531,7 @@ describe("intersection", function() {
     expect(_.intersection(args, leaders)).to.eql(['moe']);
   });
 });
-
+/*
 describe("difference", function() {
   it("should return the difference between two arrays", function() {
     var diff = _.difference([1,2,3], [2,30,40]);

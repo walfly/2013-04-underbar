@@ -183,10 +183,7 @@ var _ = {};
   _.every = function(obj, iterator) {
     // TIP: use reduce on this one!
       return _.reduce(obj, function(memo, item){
-        if (!iterator(item)){
-          memo = false;
-        }
-        return memo;
+        return !!memo && iterator(item);
       },true);
   };
 
@@ -381,7 +378,6 @@ var _ = {};
         storage[item[i]] = storage[item[i]] ? storage[item[i]] + 1 : 1;
       }
     });
-    console.log(storage)
     var newArray = [];
     for(var key in storage){
       if (storage[key] > 1){
